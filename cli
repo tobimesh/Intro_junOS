@@ -1,1 +1,48 @@
+****************
+cli
 
+configure
+
+load factor-default 
+
+commit
+
+set system  root-authenticaton plain-text-password 
+
+commit and-quit 
+
+exit configuration-mode
+
+request system reboot
+yes
+**************
+
+Modes:
+operational and configurational.
+
+
+cnfigure
+    interface
+        ge -0/0/0
+            >> unit 0
+                >> famaily inet
+                    >>address 1.2.3.4/24
+                    
+            
+Alternatively
+
+set interface ge-0/0/0 unit 0 family inet address 1.2.3.4/24
+
+
+show | compare (to see uncommitted changes)
+
+grep functions:
+show interfaces ge-0/0/0 | match MTU
+show interfaces ge-0/0/0 | expect MTU
+show interfaces ge-0/0/0 | find MTU
+
+
+show configuraton | display set
+show configuraton | display detail
+
+show interfaces terse | expect down | match inet
