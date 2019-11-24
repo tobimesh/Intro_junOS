@@ -20,7 +20,7 @@ yes
 Modes:
 operational and configurational.
 
-
+***********************
 cnfigure
     interface
         ge -0/0/0
@@ -32,7 +32,7 @@ cnfigure
 Alternatively
 
 set interface ge-0/0/0 unit 0 family inet address 1.2.3.4/24
-
+**********************************
 
 show | compare (to see uncommitted changes)
 
@@ -44,5 +44,109 @@ show interfaces ge-0/0/0 | find MTU
 
 show configuraton | display set
 show configuraton | display detail
+show configuraton interfaces | display set
 
 show interfaces terse | expect down | match inet
+
+show interfaces terse extensive
+
+set cli screen-width 1024
+set cli screen-length 0
+
+rollback 0
+
+commit and-quit 
+commit check
+commit at 
+commit confirm
+
+show | compare rollback 1
+
+show system rollback 1
+
+**********************
+configure Ethernet Interfaces/Switching
+show interfaces terse extensive
+
+configure
+edit interface ge-0/0/0
+set vlan-tagging
+edit unit 10
+set vlan-id 10
+edit family inet 
+set address 10.0.0.2/24
+
+top show | compare
+
+***delete unit 0 (every unit need a vlan tag)
+
+
+show route
+*************************************
+
+
+show confgure interface ge-0/0/0
+
+edit interface ge-0/0/0 unit 0
+delete family ethernet-switching
+set family inet address 10.0.0.3/24
+
+top show |  compare
+*********************************
+
+show ethernet-switching interfaces
+
+
+create vlans and trunk configuration
+
+configure
+edit vlan
+set vlan10 vlan-id 10
+
+ or
+ 
+ set vlans vlan10 vlan-id 10
+ set vlans vlan20 vlan-id 20
+ 
+ 
+ 
+ #help apropes interface-range
+ set interfaces interfaces-range 
+ 
+ 
+ edit interface ge-0/0/23 unit 0 family ethernet-switching 
+ set port-mode trunk
+ set vlan member all [vlan10 vlan20]
+ 
+ ##delete vlan member 20 (removes it fromt the list)
+
+show vlan brief
+
+To copy above config to other ports
+
+#delete ge-0/0/0
+#delete ge-0/0/1
+#copy ge-0/0/23 to ge-0/0/0
+#copy ge-0/0/23 to ge-0/0/1
+
+
+#show spanning-tree bridge
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Disable security module in SRX (flow-based)
+configure
+delete security
+set security forwarding-options family mpls mode packet-based
+set security forwarding-options family iso mode packet-based
+set security forwarding-options fmaily inet6 mode packet-based
+commit and-quit
+request system reboot
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Assign port to vlan
+!
+configure
+edit interface ge-0/0/1 unit 0 family ethernet-switching
+set vlan member vlan 10
+!
