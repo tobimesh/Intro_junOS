@@ -185,6 +185,26 @@ protocols: STP or RSTP
 
 Show configuration protocols (shows both L2 & L3 protocols)
 
+configure
+edit protocols
+(show)
+delete stp
+set rstp
+!
+edit protocol
+delete rstp
+edit mstp
+set revision-level 1
+set configuration-name JUNOS_TO_IOS
+set msti 1 vlan vlan12 vlan23 vlan 33 
+set msti 2 vlan [vlan34 vlan35 vlan37]
+
+!
+change root bridge:
+configure mode
+edit protocol rstp
+set bridge-priority 8k
+
 interface range commmand:
 set interface interface-range TO_SRX member ge-0/0/0
 set interface interface-range TO_SRX member ge-0/0/1
@@ -194,7 +214,14 @@ set interface interface-range TO_SRX member ge-0/0/5
 
 set interface interface-range TO_SRX disable
 
+!
+show ethernet-switching interfaces | find ge-0/0/6
+show ethernet-switching interfaces ge-0/0/6 detail
+
+Enable interface already disabled
+show run inteface ge-0/0/22 terse
+delete interfaces ge-0/0/22 disable (activate the interface)
 
 
-
-
+Turning logs"
+>monitor start messages
