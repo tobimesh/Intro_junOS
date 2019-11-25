@@ -150,3 +150,51 @@ configure
 edit interface ge-0/0/1 unit 0 family ethernet-switching
 set vlan member vlan 10
 !
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+JUNOS RVI (IOS SVI)
+>configure
+#edit vlans
+(show vlans)
+edit vlan 10 L3-interface vlan.10
+up
+edit intterfaces vlan
+edit unit 10
+set family inet address 10.10.10.1/24 
+ 
+ top show | compare
+ 
+ show configuration vlan
+ show configuration interface vlan
+ 
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+JUNOS Ethernet Native Vlans
+
+configure
+edit interface ge-0/0/23 unit 0 family ethernet-switching 
+set native-vlan-id 100
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SPANNING TREE
+
+protocols: STP or RSTP
+
+Show configuration protocols (shows both L2 & L3 protocols)
+
+interface range commmand:
+set interface interface-range TO_SRX member ge-0/0/0
+set interface interface-range TO_SRX member ge-0/0/1
+set interface interface-range TO_SRX member ge-0/0/3
+set interface interface-range TO_SRX member ge-0/0/4
+set interface interface-range TO_SRX member ge-0/0/5
+
+set interface interface-range TO_SRX disable
+
+
+
+
+
