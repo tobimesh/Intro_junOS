@@ -1,1 +1,30 @@
+IP addressing:
+    primary
+    preferred
+    uses the lowest ip if not specified
+
+Static Routing:
+    configured on routiong options
+    set routing-options statie route 0.0.0.0/0 nexthop 1.2.3.4
+    or
+    edit routing-options
+    set routing-options static route 6.6.6.6/32 nexthop 10.1.46.6
+    commit and-quit
+    
+    
+    show route
+    #show route table inet.0
+    #show route table inet6.0
+    #run show route table inet.0 
+    
+    
+    IPv6
+    set routing-options rib inet6.0 ::/0 nexthop 2001::1
+    
+    #show route table inet.0
+    #show route table inet6.0 
+    
+VRFs:
+    
+
 
