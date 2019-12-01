@@ -1,6 +1,6 @@
 IP addressing:
-    primary
-    preferred
+    primary (source for multicat and broadcast packets control plane)
+    preferred (link local communocation)
     uses the lowest ip if not specified
 
 Static Routing:
@@ -12,10 +12,19 @@ Static Routing:
     commit and-quit
     
     
+    
+    reject - drop send unreachable uuuu
+    discard - drop silently ....
+    
+
     show route
     #show route table inet.0
     #show route table inet6.0
     #run show route table inet.0 
+    
+    
+    *set routing-options static route 10.0.0.0/24 next-hop 1.2.3.4 no-readvertise 
+    
     
     
     IPv6
@@ -24,7 +33,16 @@ Static Routing:
     #show route table inet.0
     #show route table inet6.0 
     
-VRFs:
-    
-
-
+VRFs:(Routing  instances)
+    set routing-instances A instance-type vrf
+    set routing-instances A interface ge-0/0/0
+    set routing-instances A route-distnguisher 1:!
+    set routing-instances A vrf-target import target:1:!
+    set routing-instances A vrf-target export target:1:1
+     
+    set VRF_A  instance-type vrf
+    set VRF_A interface ge-0/0/0
+    set VRF_A route-distnguisher 1:!
+    set VRF_A vrf-target import target:1:!
+    set VRF_A vrf-target export target:1:1
+     
