@@ -2,6 +2,28 @@ IP addressing:
     primary (source for multicat and broadcast packets control plane)
     preferred (link local communocation)
     uses the lowest ip if not specified
+    
+    
+    
+    set forwarding-options helpers bootp server 10.149.96.100
+    set forwarding-options helpers bootp server 10.149.96.101
+    set forwarding-options helpers bootp server 10.149.112.101
+    
+    set forwarding-options helper bootp interface vlan.300 server 10.149.112.51
+    set forwarding-options helper bootp interface vlan.300 server 10.149.112.100
+    set forwarding-options helper bootp interface vlan.300 server 10.149.112.101
+    
+    
+show interface terse
+vlan.100 inet 10.149.144.1/24
+vlan.200 inet 10.149.159.129/25
+vlan.300 inet 10.149.146.0/24
+vlan.600 inet 10.149.158.0/24
+vlan.500 inet 10.149.152.0/24
+
+
+
+
 
 Static Routing:
     configured on routiong options
@@ -46,3 +68,68 @@ VRFs:(Routing  instances)
     set VRF_A vrf-target import target:1:!
     set VRF_A vrf-target export target:1:1
      
+     
+     ************************
+     load factory-default
+     set system root-authentication plain-text-password
+     commit and-quit
+     request system reboot
+     **************************
+     
+     delete security 
+     set security forwarding-options family mpls mode packet-based
+     set security forwarding-options family iso mode packet-based
+     set security forwarding-options family inet6  mode packet-based
+     
+     
+     OSPF
+     set protocols ospf area 0 interface all
+     
+     edit protocols ospf 
+     set area 0 interface all
+     
+     
+     show ospf
+     
+     
+    show ospf interface ge-0/0/0.12 detail
+    Type:LAN (broadcast)
+    
+    ospf database
+    show route forwarding-table
+    
+    show config protocols ospf
+    
+     
+     
+     
+     
+     Virtul-chasis
+     
+     set virtual-chasis member 0 mastership-priority 255
+     set virtual-chasis member 1 mastership-priority 254
+     
+     
+     ***********************************
+     
+     set firewall family inet filter DC1-to-DCx term ALLOW_TREND source-address x.x.x.x/24 
+     set firewall family inet filter DC1-to-DCx term ALLLOW_TREND destination-address a.a.a.a/24
+     set firewall family inet filter DC1-to-DCx term ALLLOW_TREND  then accept
+     
+     
+     set interface ge-0/0/0 unit 0 family inet filter output DC1-to-DCx
+     set interface ge-0/0/0 unit 0 family inet filter input DC1-to-DCx
+     
+     
+     show configuration firewall family inet filter DC1-to-DCx term ALLOW-FireEYE 
+     
+     
+     ***infoblox***
+     
+     set membership
+     
+     show status
+     ***
+     
+     
+     ************************************
